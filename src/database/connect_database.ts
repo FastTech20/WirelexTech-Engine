@@ -3,7 +3,7 @@ import { connect, Mongoose } from "mongoose";
 configDotenv();
 
 const dbUrl: string = process.env.MONGO_DB_URL as string;
-console.log(`---- ${dbUrl} ---`);
+
 const env = process.env.NODE_ENV;
 
 const connectDB = async (): Promise<Mongoose> => {

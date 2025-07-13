@@ -1,6 +1,7 @@
 import express from "express";
 import { configureServer } from "./config/server_config";
 import { errorHandler } from "./middlewares/error_handler";
+import connectDB from "./database/connect_database";
 
 const PORT = process.env.PORT as string | 5000;
 const env = process.env.NODE_ENV;
@@ -13,20 +14,20 @@ const bootStrap = () => {
   });
   app.use(errorHandler);
 
-  // connectDB()
-  //   .then(() => {
-  //     app.listen(PORT, () => {
-  //       if (env === "development")
-  //         console.log(`---Server has started running on port ${PORT} ---`);
-  //     });
-  //   })
-  //   .catch((err: Error) => {
-  //     throw new Error(err.message);
-  //   });
-  app.listen(PORT, () => {
-    if (env === "development")
-      console.log(`--- Server bootstrapped on port ${PORT} ---`);
-  });
+  connectDB()
+    .then(() => {
+      app.listen(PORT, () => {
+        if (env === "development")
+          console.log(`--- Server bootstrapped on port ${PORT} ---`);
+      });
+    })
+    .catch((err: Error) => {
+      throw new Error(err.message);
+    });
+  // app.listen(PORT, () => {
+  //   if (env === "development")
+  //     console.log(`--- Server bootstrapped on port ${PORT} ---`);
+  // });
 };
 
 export default bootStrap;

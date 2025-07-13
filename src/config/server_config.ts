@@ -19,7 +19,6 @@ export const configureServer = (app: Application) => {
   app.use(helmet());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-  console.log(process.env.NODE_ENV);
 
   if (process.env.NODE_ENV === "development") {
     console.log(`--- Running in development mode ---`);
