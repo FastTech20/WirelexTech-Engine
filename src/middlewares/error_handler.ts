@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { AppResponse, statusMsg } from "../utils/app-response";
 
 class NotFoundError extends Error {
   status: number;
@@ -29,7 +30,7 @@ const errorHandler = (
 
   const statusCode = (error as NotFoundError).status || 500;
 
-  res.status(statusCode).json({ message: error.message });
+  res.status(statusCode).json(new AppResponse(statusMsg.failure, error.message));
 };
 
 export { notFoundErrorHandler, errorHandler };
