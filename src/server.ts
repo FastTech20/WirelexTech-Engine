@@ -1,7 +1,8 @@
 import express from "express";
 import { configureServer } from "./config/server_config";
-import { errorHandler } from "./middlewares/error_handler";
+import { errorHandler, notFoundErrorHandler } from "./middlewares/error_handler";
 import connectDB from "./database/connect_database";
+import userRouter from "./routes/user";
 
 const PORT = process.env.PORT as string | 5000;
 const env = process.env.NODE_ENV;
@@ -12,6 +13,12 @@ const bootStrap = () => {
   app.get("/", (_, res) => {
     res.send("Hello there");
   });
+
+
+  //Register Routes
+  app.use("/user", userRouter)
+
+  app.use(notFoundErrorHandler);
   app.use(errorHandler);
 
   connectDB()
